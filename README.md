@@ -1,410 +1,197 @@
-\# Rappi Case — Early Warning System
+# Rappi Case — Early Warning System
 
-
-
-\## Descripción
-
-
+## Descripción
 
 Solución para detectar posibles condiciones de saturación operacional asociadas a eventos de precipitación y generar alertas accionables para Operations.
 
-
-
 La solución está compuesta por tres módulos:
 
+1. **Módulo 1 — Diagnóstico histórico**
+2. **Módulo 2 — Motor de alertas**
+3. **Módulo 3 — Agente AI + Telegram**
+
+---
 
 
-1\. \*\*Módulo 1 — Diagnóstico histórico\*\*
+# Módulo 1 — Diagnóstico histórico
 
-2\. \*\*Módulo 2 — Motor de alertas\*\*
+## Objetivo
 
-3\. \*\*Módulo 3 — Agente AI + Telegram\*\*
+Analizar el comportamiento histórico de las zonas para identificar patrones de saturación y evaluar la relación entre precipitación, demanda y oferta de repartidores.
 
+## Ejecución
 
-
-\---
-
-
-
-\# Módulo 1 — Diagnóstico histórico
-
-
-
-\### Objetivo
-
-
-
-Analizar el comportamiento histórico de las zonas para identificar patrones de saturación y la relación entre precipitación, demanda y oferta de repartidores.
-
-
-
-\### Ejecución
-
-
-
-Abrir el notebook ubicado en:
-
-
+Abrir:
 
 ```text
-
-modulo1\_diagnostico/
-
+modulo1_diagnostico/modulo1_diagnostico.ipynb
 ```
 
+El notebook contiene:
 
+- Exploración y preparación de los datos.
+- Cálculo del ratio operacional.
+- Identificación de ventanas y zonas de mayor riesgo.
+- Análisis de precipitación.
+- Análisis estadístico.
+- Visualizaciones.
+- Hallazgos y conclusiones.
 
-El notebook debe ejecutarse de principio a fin.
+El análisis histórico sirve como base para definir las reglas utilizadas posteriormente por el motor de alertas.
 
+---
 
+# Módulo 2 — Motor de alertas
 
-El análisis incluye:
+## Objetivo
 
+Convertir los patrones identificados en el Módulo 1 en un sistema de decisión que utiliza información meteorológica para anticipar posibles condiciones de saturación.
 
-
-\- Exploración de los datos.
-
-\- Cálculo del ratio operacional.
-
-\- Identificación de horas y zonas de mayor riesgo.
-
-\- Análisis de precipitación.
-
-\- Análisis estadístico.
-
-\- Visualizaciones.
-
-\- Principales hallazgos y conclusiones.
-
-
-
-La salida del Módulo 1 sirve como base para definir las reglas utilizadas posteriormente por el motor de alertas.
-
-
-
-\---
-
-
-
-\# Módulo 2 — Motor de alertas
-
-
-
-\### Objetivo
-
-
-
-Convertir los patrones históricos identificados en el Módulo 1 en un sistema de decisión que utilice un forecast meteorológico para anticipar posibles condiciones de saturación.
-
-
-
-\### Flujo
-
-
+## Flujo
 
 ```text
-
 Forecast meteorológico
-
-&#x20;       ↓
-
+        ↓
 Precipitación por zona
-
-&#x20;       ↓
-
+        ↓
 Ratio proyectado
-
-&#x20;       ↓
-
+        ↓
 Nivel de riesgo
-
-&#x20;       ↓
-
+        ↓
 Earnings recomendado
-
-&#x20;       ↓
-
+        ↓
 Alerta estructurada
-
 ```
 
-
-
-\### Ejecución
-
-
+## Ejecución
 
 Entrar a la carpeta:
 
-
-
 ```bash
-
-cd modulo2\_motor\_alertas
-
+cd modulo2_motor_alertas
 ```
 
-
-
-Instalar dependencias:
-
-
+Instalar las dependencias:
 
 ```bash
-
 pip install -r requirements.txt
-
 ```
 
-
-
-Ejecutar el motor utilizando el dataset:
-
-
+Ejecutar el motor:
 
 ```bash
-
-python motor\_alertas.py --input ../rappi\_delivery\_case\_data.xlsx
-
+python motor_alertas.py
 ```
 
+El motor genera una alerta estructurada con información como:
 
+- Zona.
+- Hora del forecast.
+- Precipitación esperada.
+- Ratio proyectado.
+- Nivel de riesgo.
+- Earnings recomendado.
+- Ventana de acción.
+- Zonas secundarias.
 
-Para ejecutar la demostración:
-
-
-
-```bash
-
-python motor\_alertas.py --input ../rappi\_delivery\_case\_data.xlsx --demo
-
-```
-
-
-
-El motor utiliza información meteorológica para generar una alerta estructurada que posteriormente puede ser consumida por el Agente AI.
-
-
-
-\---
-
-
-
-\# Módulo 3 — Agente AI + Telegram
-
-
-
-\### Objetivo
-
-
-
-Transformar la alerta estructurada del Módulo 2 en un mensaje breve y accionable utilizando Gemini y enviarlo automáticamente mediante Telegram.
-
-
-
-\### Flujo
-
-
+La justificación de los principales thresholds y reglas se encuentra en:
 
 ```text
-
-Módulo 2
-
-&#x20;  ↓
-
-JSON de alerta
-
-&#x20;  ↓
-
-Gemini
-
-&#x20;  ↓
-
-Mensaje contextualizado
-
-&#x20;  ↓
-
-Telegram
-
-&#x20;  ↓
-
-Operations Manager
-
+modulo2_motor_alertas/justificacion_motor.md
 ```
 
+---
 
+# Módulo 3 — Agente AI + Telegram
 
-\### Requisitos
+## Objetivo
 
+Transformar la alerta estructurada generada por el motor en un mensaje accionable utilizando Gemini y enviarlo mediante Telegram.
 
+## Flujo
 
-\- Python 3.x
+```text
+Módulo 2
+    ↓
+Alerta estructurada
+    ↓
+Gemini
+    ↓
+Mensaje contextualizado
+    ↓
+Telegram
+    ↓
+Operations
+```
 
-\- Gemini API Key
+## Requisitos
 
-\- Telegram Bot Token
+- Python 3.x
+- Gemini API Key
+- Telegram Bot Token
+- Telegram Chat ID
 
-\- Telegram Chat ID
-
-
-
-\### Instalación
-
-
+## Instalación
 
 Entrar a:
 
-
-
 ```bash
-
-cd modulo3\_agente\_telegram
-
+cd modulo3_agente_telegram
 ```
-
-
 
 Instalar dependencias:
 
-
-
 ```bash
-
 pip install -r requirements.txt
-
 ```
 
-
-
-\### Configuración
-
-
+## Variables de entorno
 
 Crear un archivo:
 
-
-
 ```text
-
 .env
-
 ```
-
-
 
 Utilizar `.env.example` como referencia:
 
-
-
 ```text
-
-GEMINI\_API\_KEY=your\_gemini\_api\_key
-
-TELEGRAM\_BOT\_TOKEN=your\_telegram\_bot\_token
-
-TELEGRAM\_CHAT\_ID=your\_telegram\_chat\_id
-
+GEMINI_API_KEY=your_gemini_api_key
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_CHAT_ID=your_telegram_chat_id
 ```
 
+Las credenciales reales no deben incluirse en el repositorio.
 
-
-
-
-\### Configuración del bot de Telegram
-
-
-
-1\. Crear un bot utilizando \*\*BotFather\*\* en Telegram.
-
-2\. Obtener el `TELEGRAM\_BOT\_TOKEN`.
-
-3\. Iniciar una conversación con el bot.
-
-4\. Obtener el `TELEGRAM\_CHAT\_ID`.
-
-5\. Agregar ambos valores al archivo `.env`.
-
-
-
-\### Prueba del agente
-
-
+## Prueba del agente
 
 Para generar el mensaje sin enviarlo:
 
-
-
 ```bash
-
-python agent.py --input sample\_alert.json --dry-run
-
+python agent.py --input sample_alert.json --dry-run
 ```
 
-
-
-Para ejecutar el flujo completo y enviar la alerta a Telegram:
-
-
+Para ejecutar el flujo completo y enviar la alerta:
 
 ```bash
-
-python agent.py --input sample\_alert.json
-
+python agent.py --input sample_alert.json
 ```
 
+El mensaje generado incluye la información necesaria para que Operations pueda entender rápidamente la situación y tomar acción.
 
+---
 
-El sistema genera un mensaje que incluye:
+# Tecnologías utilizadas
 
+- Python
+- Pandas
+- NumPy
+- Statsmodels
+- Shapely
+- Open-Meteo
+- Google Gemini
+- Telegram Bot API
+- Jupyter / Google Colab
 
-
-\- Zona afectada.
-
-\- Nivel de riesgo.
-
-\- Condición esperada.
-
-\- Ratio proyectado.
-
-\- Earnings actual.
-
-\- Earnings recomendado.
-
-\- Ventana de acción.
-
-\- Zonas secundarias cuando corresponda.
-
-
-
-\---
-
-
-
-\# Tecnologías
-
-
-
-\- Python
-
-\- Pandas
-
-\- NumPy
-
-\- Statsmodels
-
-\- Shapely
-
-\- Open-Meteo
-
-\- Google Gemini
-
-\- Telegram Bot API
-
-\- Google Colab
-
-
-
-\---
-
-
+---
 
