@@ -1,4 +1,4 @@
-# Rappi Case — Early Warning System
+# Rappi Case-Early Warning System
 
 ## Descripción
 
@@ -6,14 +6,14 @@ Solución para detectar posibles condiciones de saturación operacional asociada
 
 La solución está compuesta por tres módulos:
 
-1. **Módulo 1 — Diagnóstico histórico**
-2. **Módulo 2 — Motor de alertas**
-3. **Módulo 3 — Agente AI + Telegram**
+1. **Módulo 1 - Diagnóstico histórico**
+2. **Módulo 2 - Motor de alertas**
+3. **Módulo 3 - Agente AI + Telegram**
 
 ---
 
 
-# Módulo 1 — Diagnóstico histórico
+# Módulo 1 - Diagnóstico histórico
 
 ## Objetivo
 
@@ -41,7 +41,7 @@ El análisis histórico sirve como base para definir las reglas utilizadas poste
 
 ---
 
-# Módulo 2 — Motor de alertas
+# Módulo 2 - Motor de alertas
 
 ## Objetivo
 
@@ -102,7 +102,7 @@ modulo2_motor_alertas/justificacion_motor.md
 
 ---
 
-# Módulo 3 — Agente AI + Telegram
+# Módulo 3 - Agente AI + Telegram
 
 ## Objetivo
 
