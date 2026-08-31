@@ -1,0 +1,17 @@
+{
+  "zone": "Santiago",
+  "forecast_time": "14:00",
+  "precipitation_forecast_mm": 7.2,
+  "ratio_projected": 2.01,
+  "risk": "CRÍTICO",
+  "current_earnings": 55,
+  "earnings_recommended": 78,
+  "increment_mxn": 23.0,
+  "increment_pct": 41.8,
+  "action_window_minutes": 30,
+  "secondary_zones": [
+    "Carretera Nacional",
+    "Santa Catarina"
+  ],
+  "historical_basis": "El análisis histórico muestra mayor sensibilidad operacional bajo condiciones de lluvia."
+}
